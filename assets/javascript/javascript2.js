@@ -9,10 +9,8 @@ var config = {
     projectId: "employeeddatamanagement",
     storageBucket: "employeeddatamanagement.appspot.com",
     messagingSenderId: "113748641322"
-
-
-    
-  };
+    }
+};
 
 firebase.initializeApp(config);
 var database = firebase.database();
@@ -32,7 +30,7 @@ $("#submit").on("click", function(event) {
         name: name,
         role: role,
         start: start,
-        rate: rate   
+        rate: rate
     }), function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     };

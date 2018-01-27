@@ -20,6 +20,11 @@
     padding-left: 2%;
 }
 
+#txt {
+    background-color: rgba(255, 255, 255, 0.493);
+    color:black;
+}
+
 .invisible {
     display: none;
 }
