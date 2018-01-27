@@ -172,7 +172,13 @@
                                 <button class="btn btn-primary" id="search-btn" type="submit">Search</button>
                                 <button class="btn btn-primary" id="addItem" type="submit">Add</button>
                             </form>
-                            <div id="food-display">
+                            <div class="invisible" id="food-display">
+								<h5>
+									<span id="food-type"></span>
+								</h5>
+								<p>
+									Calories: <span id="calories-dis"></span> | Protein: <span id="protein-dis"></span> | Sugar: <span id="sugars-dis"></span> | Sodium: <span id="sodium-dis"></span> | <span id="add-btn"></span>
+								</p>
                             </div>
                         </div>
                     </div>
@@ -233,7 +239,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/javascript/nutronix.js"></script>
     <script src="assets/javascript/javascript2.js"></script>
     <script type="text/javascript" src="assets/javascript/next.js"></script>
