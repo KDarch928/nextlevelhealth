@@ -87,6 +87,7 @@ function displayFoodItem(event) {
     });
 }
 
+
 function displayFoodSearchItem(event) {
     event.preventDefault();
     $("#food-display").removeClass("invisible");
@@ -123,10 +124,10 @@ function displayFoodSearchItem(event) {
             function calories() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
                     if (item.label.nutrients[i].unit === "kcal") {
-                        caloriesVal += item.label.nutrients[i].value;
+                        var caloriesValSearch = item.label.nutrients[i].value;
                         console.log(caloriesVal);
                         $("#calories-dis").empty()
-                        $("#calories-dis").append(caloriesVal);
+                        $("#calories-dis").append(caloriesValSearch);
                     }
                 }
             };
@@ -134,9 +135,9 @@ function displayFoodSearchItem(event) {
             function sodium() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
                     if (item.label.nutrients[i].name === "Sodium" || item.label.nutrients[i].name === "Sodium, Na") {
-                        sodiumVal += item.label.nutrients[i].value;
+                        var sodiumValSearch = item.label.nutrients[i].value;
                         $("#sodium-dis").empty()
-                        $("#sodium-dis").append(sodiumVal + "g");
+                        $("#sodium-dis").append(sodiumValSearch + "g");
 
                     }
                 }
@@ -145,9 +146,9 @@ function displayFoodSearchItem(event) {
             function sugars() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
                     if (item.label.nutrients[i].name === "Sugars" || item.label.nutrients[i].name === "Sugars, total") {
-                        sugarsVal += item.label.nutrients[i].value;
+                        var sugarsValSearch = item.label.nutrients[i].value;
                         $("#sugars-dis").empty()
-                        $("#sugars-dis").append(sugarsVal + "g");
+                        $("#sugars-dis").append(sugarsValSearch + "g");
                     }
                 }
             }
@@ -155,9 +156,9 @@ function displayFoodSearchItem(event) {
             function protein() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
                     if (item.label.nutrients[i].name === "Protein") {
-                        proteinVal += item.label.nutrients[i].value;
+                        var proteinValSearch = item.label.nutrients[i].value;
                         $("#protein-dis").empty()
-                        $("#protein-dis").append(proteinVal + "g");
+                        $("#protein-dis").append(proteinValSearch + "g");
                     }
                 }
             }
