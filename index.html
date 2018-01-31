@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Train Schedule</title>
+	<title>Next Level Health</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-	<!-- Employee Tracker -->
+	<!-- Containter Begins -->
 	<div class="container">
 
 		<!-- Jumbotron -->
@@ -96,6 +96,7 @@
 					</div>
 				</div>
 				<button type="button" class="btn btn-primary btn-lg btn-block" id="recipe-search" style="margin-top:3%;" value="recipe">Seach for Healthy Recipe Ideas</button>
+				<button type="button" class="btn btn-primary btn-lg btn-block" id="cal-search" style="margin-top:3%;" value="calSearch">Search Nutritional Facts</button>
 				<!--End of Name Check Col-->
 			</div>
 
@@ -151,6 +152,34 @@
 				<!--End of Logout Col-->
 			</div>
 
+			<!--Nutriton Search Col-->
+			<div class="col-lg-6 invisible" style="margin-top: 3%; margin-bottom:3%;" id="nutrition">
+				<div class="panel panel-primary rounded" id="panelBoarder" style="background-color: #fff;">
+					<div class="panel-heading" id="panelHeader">
+						<h5 class="panel-title" id="pMargin">
+							<strong>Nutritional Facts!</strong>
+						</h5>
+					</div>
+					<div class="panel-body" id="pMargin">
+
+						<!-- Food Search Form -->
+						<form>
+							<div class="form-group">
+								<label for="food-item-input">Enter Food Item</label>
+								<input class="form-control" id="food-item-input" type="text">
+							</div>
+
+							<button class="btn btn-primary" id="nutri-btn" type="submit" value="nutriSearch" style="margin-bottom:2%">Search</button>
+							<button class="btn btn-primary" id="home-btn" type="submit" value="home" style="margin-bottom:2%">Back</button>
+						</form>
+						<div id="food-search-display">
+							<!--displays Nutritional Results-->
+						</div>
+					</div>
+				</div>
+				<!--End of Nutrition Search Col-->
+			</div>
+
 			<!--End of Row-->
 		</div>
 
@@ -169,17 +198,16 @@
 						</div>
 						<div class="panel-body" id="pMargin">
 
-							<!-- User Check Form -->
+							<!-- Food Check Form -->
 							<form>
 								<div class="form-group">
 									<label for="food-name-input">Enter Food Item</label>
 									<input class="form-control" id="food-name-input" type="text">
 								</div>
 
-								<button class="btn btn-primary" id="search-btn" type="submit">Search</button>
-								<button class="btn btn-primary" id="addItem" type="submit">Add</button>
+								<button class="btn btn-primary" id="search-btn" type="submit" value="search-cal">Search</button>
 							</form>
-							<div class="invisible" id="food-display">
+							<div class="invisible" id="food-display" style="margin-top:2%;">
 								<h5>
 									<span id="food-type"></span>
 								</h5>

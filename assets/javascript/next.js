@@ -56,7 +56,14 @@ function homePageDisplay() {
     $("#name-check").removeClass("invisible");
     $("#user-display").addClass("invisible");
     $("#user-food-display").addClass("invisible");
+    $("#nutrition").addClass("invisible");
 }
+
+function searchNutritionalFacts() {
+    $("#name-check").addClass("invisible");
+    $("#nutrition").removeClass("invisible");
+}
+
 
 $(".btn").on("click",function (event) {
     event.preventDefault();
@@ -68,5 +75,11 @@ $(".btn").on("click",function (event) {
         userProfilePage();
     } else if (btnType === "logOut"){
         homePageDisplay();
+    } else if (btnType === "recipe") {
+
+    } else if (btnType === "calSearch"){
+        searchNutritionalFacts();
+    } else if (btnType === "home"){
+        homePageDisplay();
     }
-})
+});
