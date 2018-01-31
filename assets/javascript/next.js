@@ -1,5 +1,7 @@
-function searchRecipes() {
+function searchRecipesQuery(search, diet, health) {
     var queryURL = "https://api.edamam.com/search"
+
+    console.log(queryURL);
 
     $.ajax({
         url: queryURL,
@@ -8,7 +10,8 @@ function searchRecipes() {
         data: {
             "app_id": "ba334122",
             "app_key": "559625546067efe571c6b8650185cc3d",
-            "q": "chicken",
+            "q": search,
+            "diet": diet,
             "contentType": "application/json",
         }
 
@@ -64,9 +67,15 @@ function searchNutritionalFacts() {
     $("#nutrition").removeClass("invisible");
 }
 
+function searchRecipes() {
+    $("#name-check").addClass("invisible");
+    $("#recipeSearch").removeClass("invisible");
+}
+
 
 $(".btn").on("click",function (event) {
     event.preventDefault();
+
     var btnType = $(this).val();
     console.log(btnType);
     if(btnType === "newUser") {
@@ -76,10 +85,20 @@ $(".btn").on("click",function (event) {
     } else if (btnType === "logOut"){
         homePageDisplay();
     } else if (btnType === "recipe") {
-
+        searchRecipes();
     } else if (btnType === "calSearch"){
         searchNutritionalFacts();
     } else if (btnType === "home"){
         homePageDisplay();
+    } else if (btnType === "reciSearch"){
+        var search = $("#recipe-input").val().trim();
+        var diet = $("#dietSelectPref").val();
+        var health = $("#healthSelectPref").val();
+        // console.log("Search: " + search);
+        // console.log("Diet: " + diet);
+        // console.log("Health: " + health);
+        searchRecipesQuery(search, diet, health);
+
     }
+
 });
