@@ -3,8 +3,7 @@ var sodiumVal = 0;
 var sugarsVal = 0;
 var proteinVal = 0;
 
-function displayFoodItem(event) {
-    event.preventDefault();
+function displayFoodItem() {
     var foodItem = $("#food-name-input").val().trim();
     console.log(foodItem);
     var postURL = "https://api.nutritionix.com/v1_1/search";
@@ -27,16 +26,16 @@ function displayFoodItem(event) {
     }).then(function(response) {
         console.log(response);
         var foodItemId = response.hits[0]._id;
+// <<<<<<< HEAD
         var foodItemName = response.hits[0].fields.item_name;
         console.log(foodItemName);
         console.log(foodItemId);
+
         var getURL = "https://api.nutritionix.com/v2/item/" + foodItemId + "?appId=e9a7abab&appKey=d76830f8477da39c6c738320d221e4d1";
         $.ajax({
             url: getURL,
             method: "GET"
         }).then(function(item) {
-            console.log(item);
-
             function calories() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
                     if (item.label.nutrients[i].unit === "kcal") {
@@ -78,21 +77,118 @@ function displayFoodItem(event) {
                     }
                 }
             }
+            var date = moment().format("MMM Do YY");
+            $("#date-div").empty();
+            $("#date-div").append(date);
             calories();
             sodium();
             sugars();
             protein();
 
         })
-        // Creating a div to hold the movie
+
+    });
+};
+
+function displayNutritionalResults() {
+    var foodItem = $("#food-item-input").val().trim();
+    console.log(foodItem);
+    var postURL = "https://api.nutritionix.com/v1_1/search";
+    $.ajax({
+        url: postURL,
+        method: "POST",
+        dataType: "json",
+        data: {
+            "appId": "e9a7abab",
+            "appKey": "d76830f8477da39c6c738320d221e4d1",
+            "query": foodItem,
+            "contentType": "application/json",
+            "filters": {
+                "not": {
+                    "item_type": 2
+                }
+            }
+        }
+
+    }).then(function (response) {
+        var foodItemArray = response.hits.length;
+
+        for (var i = 0; i < foodItemArray; i++) {
+            var foodItemId = response.hits[i]._id;
+            var foodItemName = response.hits[i].fields.item_name;
+            console.log("Food Item Id: " + foodItemId);
+            console.log("Food Item Id: " + foodItemName);
+
+            var getURL = "https://api.nutritionix.com/v2/item/" + foodItemId + "?appId=e9a7abab&appKey=d76830f8477da39c6c738320d221e4d1";
+            $.ajax({
+                url: getURL,
+                method: "GET"
+            }).then(function (item) {
+                console.log(item);
+
+                function calories() {
+                    for (var i = 0; i < item.label.nutrients.length; i++) {
+                        if (item.label.nutrients[i].unit === "kcal") {
+                            var caloriesValSearch = item.label.nutrients[i].value;
+                            console.log(caloriesVal);
+                            return caloriesValSearch
+                        }
+                    }
+                };
+
+                function sodium() {
+                    for (var i = 0; i < item.label.nutrients.length; i++) {
+                        if (item.label.nutrients[i].name === "Sodium" || item.label.nutrients[i].name === "Sodium, Na") {
+                            var sodiumValSearch = item.label.nutrients[i].value;
+                            return sodiumValSearch;
+
+                        }
+                    }
+                }
+
+                function sugars() {
+                    for (var i = 0; i < item.label.nutrients.length; i++) {
+                        if (item.label.nutrients[i].name === "Sugars" || item.label.nutrients[i].name === "Sugars, total") {
+                            var sugarsValSearch = item.label.nutrients[i].value;
+                            return sugarsValSearch;
+                        }
+                    }
+                }
+
+                function protein() {
+                    for (var i = 0; i < item.label.nutrients.length; i++) {
+                        if (item.label.nutrients[i].name === "Protein") {
+                            var proteinValSearch = item.label.nutrients[i].value;
+                            return proteinValSearch
+                        }
+                    }
+                }
+                var foodDiv = $("<div class='item' style='margin-top: 2%;'>");
+                var cal = calories();
+                var sod = sodium();
+                var sug = sugars();
+                var prot = protein();
+
+                var h5 = $("<h5>").text(item.name);
+
+                var p = $("<p>").text("Calories: " + cal + " | Protein: " + prot + "g | Sugar: " + sug + "g | Sodium: " + sod + "g");
+
+                foodDiv.append(h5);
+                foodDiv.append(p);
+
+                $("#food-search-display").append(foodDiv);
+
+            });
+
+        }
+        $("food-item-input").val("");
 
     });
 }
 
 
-function displayFoodSearchItem(event) {
-    event.preventDefault();
-    $("#food-display").removeClass("invisible");
+function displayFoodSearchItem() {
+    // event.preventDefault();
     var foodItem = $("#food-name-input").val().trim();
     console.log(foodItem);
     var postURL = "https://api.nutritionix.com/v1_1/search";
@@ -116,6 +212,7 @@ function displayFoodSearchItem(event) {
         console.log(response);
         var foodItemId = response.hits[0]._id;
         var foodItemName = response.hits[0].fields.item_name;
+
         console.log(foodItemName);
         console.log(foodItemId);
         var getURL = "https://api.nutritionix.com/v2/item/" + foodItemId + "?appId=e9a7abab&appKey=d76830f8477da39c6c738320d221e4d1";
@@ -123,7 +220,6 @@ function displayFoodSearchItem(event) {
             url: getURL,
             method: "GET"
         }).then(function(item) {
-            console.log(item);
 
             function calories() {
                 for (var i = 0; i < item.label.nutrients.length; i++) {
@@ -166,22 +262,24 @@ function displayFoodSearchItem(event) {
                     }
                 }
             }
+            $("#food-display").removeClass("invisible");
             $("#food-type").empty();
-            $("#food-type").attr("value", foodItem);
-            $("#food-type").append(foodItem);
+            $("#food-type").attr("value", foodItemName);
+            $("#food-type").append(foodItemName);
             calories();
             sodium();
             sugars();
             protein();
             $("#add-btn").empty();
-            $("#add-btn").append("<button type='button' class='btn btn-link' id='add-food'>Add</button>")
+            $("#add-btn").append("<button type='button' class='btn btn-link' id='add-food' value='addItem'>ADD</button>")
             $("food-name-input").val("");
 
         })
-        // Creating a div to hold the movie
+
 
     });
 }
+
 
   var config = {
     apiKey: "AIzaSyA4mt7TWZsmk0r1nApx-22HwGk-tLHUPSM",
@@ -232,7 +330,6 @@ $("#saveDate").on("click", function(event) {
     // prevent form from submitting
     event.preventDefault();
     var date = moment().format("MMM Do YY");
-    console.log(date);
     $("#date-div").empty();
     $("#date-div").append(date);
     // grabbing user inputs
@@ -257,6 +354,20 @@ $("#saveDate").on("click", function(event) {
         console.log("The read failed: " + errorObject.code);
     };
 });
-$(document).on("click", "#addItem", displayFoodItem);
+// $(document).on("click", "#addItem", displayFoodItem);
 
-$(document).on("click", "#search-btn", displayFoodSearchItem);
+$(document).on("click", ".btn", function (event) {
+    event.preventDefault();
+
+    btnType = $(this).val();
+    console.log(btnType);
+    if (btnType === "addItem"){
+        displayFoodItem();
+    } else if (btnType === "search-cal") {
+        displayFoodSearchItem();
+    } else if (btnType === "nutriSearch"){
+        displayNutritionalResults();
+    }
+})
+
+
