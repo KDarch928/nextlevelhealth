@@ -84,6 +84,7 @@ function displayFoodItem() {
 
 function displayNutritionalResults() {
     var foodItem = $("#food-item-input").val().trim();
+    $("#food-search-display").empty();
     console.log(foodItem);
     var postURL = "https://api.nutritionix.com/v1_1/search";
     $.ajax({
@@ -171,9 +172,9 @@ function displayNutritionalResults() {
                 $("#food-search-display").append(foodDiv);
 
             });
+            $("#food-item-input").val("");
 
         }
-        $("food-item-input").val("");
 
     });
 }
