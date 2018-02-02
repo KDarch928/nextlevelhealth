@@ -1,7 +1,8 @@
-function searchRecipesQuery(search, diet, health) {
+function searchRecipesQuery(search, diet) {
+
+    $("#recipe-search-display").empty();
     var queryURL = "https://api.edamam.com/search"
 
-    console.log(queryURL);
 
     $.ajax({
         url: queryURL,
@@ -16,32 +17,30 @@ function searchRecipesQuery(search, diet, health) {
         }
 
     }).done(function (response) {
-        console.log(response);
+
+
+        for (var i = 0; i < response.hits.length; i++) {
+
+            var recDiv = $("<div class='card hover-card' style='margin-top: 2%;'>");
+
+            var imgTag = $("<img>");
+            imgTag.addClass("card-img-top img-responsive");
+            imgTag.attr("src",response.hits[i].recipe.image);
+            imgTag.attr("alt", response.hits[i].recipe.label);
+
+
+            var h5 = $("<a href=" + response.hits[i].recipe.url + " target='_blank' class='top' <h3>" + response.hits[i].recipe.label + "</3><br><p>Calories: " + response.hits[i].recipe.calories + "<br>Protein: " + response.hits[i].recipe.digest[2].total + "g<br>Carbs: " + response.hits[i].recipe.digest[1].total + "g<br>Sodium: " + response.hits[i].recipe.digest[4].total  + "g</p></a>");
+
+            recDiv.append(imgTag);
+            recDiv.append(h5);
+
+            $("#recipe-search-display").append(recDiv);
+            $("#recipe-input").val("");
+
+        }
+
     });
 }
-
-
-
-// $("#new-usr").on("click", function (event) {
-//     event.preventDefault();
-//     $("#name-check").addClass("invisible");
-//     $("#new-user").removeClass("invisible");
-
-// });
-
-// $("#join-btn").on("click", function (event) {
-//     event.preventDefault();
-//     $("#new-user").addClass("invisible");
-//     $("#user-display").removeClass("invisible");
-//     $("#user-food-display").removeClass("invisible");
-// });
-
-// $("#log-out").on("click", function (event) {
-//     event.preventDefault();
-//     $("#name-check").removeClass("invisible");
-//     $("#user-display").addClass("invisible");
-//     $("#user-food-display").addClass("invisible");
-// });
 
 function userProfilePage() {
     $("#new-user").addClass("invisible");
@@ -60,6 +59,7 @@ function homePageDisplay() {
     $("#user-display").addClass("invisible");
     $("#user-food-display").addClass("invisible");
     $("#nutrition").addClass("invisible");
+    $("#recipeSearch").addClass("invisible");
 }
 
 function searchNutritionalFacts() {
@@ -93,11 +93,9 @@ $(".btn").on("click",function (event) {
     } else if (btnType === "reciSearch"){
         var search = $("#recipe-input").val().trim();
         var diet = $("#dietSelectPref").val();
-        var health = $("#healthSelectPref").val();
-        // console.log("Search: " + search);
-        // console.log("Diet: " + diet);
-        // console.log("Health: " + health);
-        searchRecipesQuery(search, diet, health);
+        // var health = $("#healthSelectPref").val();
+        searchRecipes();
+        searchRecipesQuery(search, diet);
 
     }
 
