@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // <<<<<<< HEAD
 // $("#new-usr").on("click", function (event) {
 //     event.preventDefault();
@@ -22,11 +22,9 @@
 // });
 // =======
 function searchRecipes() {
-=======
 function searchRecipesQuery(search, diet) {
 
     $("#recipe-search-display").empty();
->>>>>>> a51938864b5b05cc7f72287c753cb6411676e3db
     var queryURL = "https://api.edamam.com/search"
 
 
@@ -126,4 +124,4 @@ $(".btn").on("click",function (event) {
     }
 
 });
-// >>>>>>> 5934e550df6b25c9ae7170b25083ed24acd8a1bd
+};
