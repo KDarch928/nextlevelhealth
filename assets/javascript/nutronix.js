@@ -341,8 +341,8 @@ $(document).on("click", "#saveDate", function(event) {
     console.log(caloriesVal);
     console.log(sodiumVal);
 
-    var userRef = firebase.database().ref('next-level-health-ce659');
-    console.log(userRef.child().val());
+    // var userRef = firebase.database().ref('next-level-health-ce659');
+    // console.log(userRef.child().val());
     // push user inputs to database
     database.ref().push({
         date: date,

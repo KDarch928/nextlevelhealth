@@ -1,5 +1,5 @@
 
-function searchRecipes() {
+function searchRecipesQuery(search, diet) {
 
     $("#recipe-search-display").empty();
     var queryURL = "https://api.edamam.com/search"
