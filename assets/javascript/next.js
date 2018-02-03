@@ -1,32 +1,7 @@
-<<<<<<< HEAD
-// <<<<<<< HEAD
-// $("#new-usr").on("click", function (event) {
-//     event.preventDefault();
-//     $("#name-check").addClass("invisible");
-//     $("#new-user").removeClass("invisible");
 
-// });
-
-// // $("#join-btn").on("click", function (event) {
-// //     event.preventDefault();
-// //     $("#new-user").addClass("invisible");
-// //     $("#user-display").removeClass("invisible");
-// //     $("#user-food-display").removeClass("invisible");
-// // });
-
-// $("#log-out").on("click", function (event) {
-//     event.preventDefault();
-//     $("#name-check").removeClass("invisible");
-//     $("#user-display").addClass("invisible");
-//     $("#user-food-display").addClass("invisible");
-// });
-// =======
 function searchRecipes() {
-=======
-function searchRecipesQuery(search, diet) {
 
     $("#recipe-search-display").empty();
->>>>>>> a51938864b5b05cc7f72287c753cb6411676e3db
     var queryURL = "https://api.edamam.com/search"
 
 
@@ -126,4 +101,3 @@ $(".btn").on("click",function (event) {
     }
 
 });
-// >>>>>>> 5934e550df6b25c9ae7170b25083ed24acd8a1bd
