@@ -26,7 +26,6 @@ function displayFoodItem() {
     }).then(function(response) {
         console.log(response);
         var foodItemId = response.hits[0]._id;
-// <<<<<<< HEAD
         var foodItemName = response.hits[0].fields.item_name;
         console.log(foodItemName);
         console.log(foodItemId);
@@ -92,6 +91,7 @@ function displayFoodItem() {
 
 function displayNutritionalResults() {
     var foodItem = $("#food-item-input").val().trim();
+    $("#food-search-display").empty();
     console.log(foodItem);
     var postURL = "https://api.nutritionix.com/v1_1/search";
     $.ajax({
@@ -179,9 +179,9 @@ function displayNutritionalResults() {
                 $("#food-search-display").append(foodDiv);
 
             });
+            $("#food-item-input").val("");
 
         }
-        $("food-item-input").val("");
 
     });
 }
@@ -313,9 +313,9 @@ $("#join-btn").on("click", function (event) {
     console.log(userName);
     console.log(target);
     console.log(startDate);
-    database.ref().update({
-        name: userName + "-" + target + "-" + startDate
-    })
+    // database.ref().update(
+    //     userName + "-" + target + "-" + startDate
+    // )
 });
 
 $("#log-out").on("click", function (event) {
@@ -326,22 +326,23 @@ $("#log-out").on("click", function (event) {
 });
 
 
-$("#saveDate").on("click", function(event) {
+$(document).on("click", "#saveDate", function(event) {
     // prevent form from submitting
     event.preventDefault();
     var date = moment().format("MMM Do YY");
-    $("#date-div").empty();
-    $("#date-div").append(date);
     // grabbing user inputs
-    // var sugarsDayVal = $("#sugars-div").val().trim();
-    // var proteinDayVal = $("#protein-div").val().trim();
-    // var caloriesDayVal = $("#calories-div").val().trim();
-    // var sodiumDayVal = $("#sodium-div").val().trim();
+    var sugarsDayVal = $("#sugars-div").val().trim();
+    var proteinDayVal = $("#protein-div").val().trim();
+    var caloriesDayVal = $("#calories-div").val().trim();
+    var sodiumDayVal = $("#sodium-div").val().trim();
 
     console.log(sugarsVal);
     console.log(proteinVal);
     console.log(caloriesVal);
     console.log(sodiumVal);
+
+    var userRef = firebase.database().ref('next-level-health-ce659');
+    console.log(userRef.child().val());
     // push user inputs to database
     database.ref().push({
         date: date,
@@ -354,7 +355,6 @@ $("#saveDate").on("click", function(event) {
         console.log("The read failed: " + errorObject.code);
     };
 });
-// $(document).on("click", "#addItem", displayFoodItem);
 
 $(document).on("click", ".btn", function (event) {
     event.preventDefault();
