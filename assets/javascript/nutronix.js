@@ -350,7 +350,7 @@ $(document).on("click", "#saveDate", function(event) {
         protein: proteinVal,
         calories: caloriesVal,
         sodium: sodiumVal
-        
+
     }), function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     };
@@ -366,6 +366,7 @@ $(document).on("click", ".btn", function (event) {
     } else if (btnType === "search-cal") {
         displayFoodSearchItem();
     } else if (btnType === "nutriSearch"){
+        $("#food-search-display").empty();
         displayNutritionalResults();
     }
 })
