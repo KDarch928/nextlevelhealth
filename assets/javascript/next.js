@@ -86,8 +86,10 @@ $(".btn").on("click",function (event) {
     } else if (btnType === "logOut"){
         homePageDisplay();
     } else if (btnType === "recipe") {
+        $("#recipe-search-display").empty();
         searchRecipes();
     } else if (btnType === "calSearch"){
+        $("#food-search-display").empty();
         searchNutritionalFacts();
     } else if (btnType === "home"){
         homePageDisplay();
@@ -95,7 +97,6 @@ $(".btn").on("click",function (event) {
         var search = $("#recipe-input").val().trim();
         var diet = $("#dietSelectPref").val();
         // var health = $("#healthSelectPref").val();
-        searchRecipes();
         searchRecipesQuery(search, diet);
 
     }
