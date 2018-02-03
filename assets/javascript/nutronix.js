@@ -26,6 +26,10 @@ function displayFoodItem() {
     }).then(function(response) {
         console.log(response);
         var foodItemId = response.hits[0]._id;
+        var foodItemName = response.hits[0].fields.item_name;
+        console.log(foodItemName);
+        console.log(foodItemId);
+
         var getURL = "https://api.nutritionix.com/v2/item/" + foodItemId + "?appId=e9a7abab&appKey=d76830f8477da39c6c738320d221e4d1";
         $.ajax({
             url: getURL,
@@ -72,6 +76,9 @@ function displayFoodItem() {
                     }
                 }
             }
+            var date = moment().format("MMM Do YY");
+            $("#date-div").empty();
+            $("#date-div").append(date);
             calories();
             sodium();
             sugars();
@@ -80,7 +87,7 @@ function displayFoodItem() {
         })
 
     });
-}
+};
 
 function displayNutritionalResults() {
     var foodItem = $("#food-item-input").val().trim();
@@ -205,6 +212,9 @@ function displayFoodSearchItem() {
         console.log(response);
         var foodItemId = response.hits[0]._id;
         var foodItemName = response.hits[0].fields.item_name;
+
+        console.log(foodItemName);
+        console.log(foodItemId);
         var getURL = "https://api.nutritionix.com/v2/item/" + foodItemId + "?appId=e9a7abab&appKey=d76830f8477da39c6c738320d221e4d1";
         $.ajax({
             url: getURL,
@@ -270,17 +280,95 @@ function displayFoodSearchItem() {
     });
 }
 
-$(".btn").on("click",function (event) {
+
+  var config = {
+    apiKey: "AIzaSyA4mt7TWZsmk0r1nApx-22HwGk-tLHUPSM",
+    authDomain: "next-level-health-ce659.firebaseapp.com",
+    databaseURL: "https://next-level-health-ce659.firebaseio.com",
+    projectId: "next-level-health-ce659",
+    storageBucket: "",
+    messagingSenderId: "992118837999"
+  };
+  firebase.initializeApp(config);
+
+var database = firebase.database();
+
+$("#new-usr").on("click", function (event) {
+    event.preventDefault();
+    $("#name-check").addClass("invisible");
+    $("#new-user").removeClass("invisible");
+
+});
+
+$("#join-btn").on("click", function (event) {
+    event.preventDefault();
+    $("#new-user").addClass("invisible");
+    $("#user-display").removeClass("invisible");
+    $("#user-food-display").removeClass("invisible");
+
+    var userName = $("#join-name-input").val().trim();
+    var target = $("#goal-input").val().trim();
+    var startDate = $("#start-input").val().trim();
+
+    console.log(userName);
+    console.log(target);
+    console.log(startDate);
+    // database.ref().update(
+    //     userName + "-" + target + "-" + startDate
+    // )
+});
+
+$("#log-out").on("click", function (event) {
+    event.preventDefault();
+    $("#name-check").removeClass("invisible");
+    $("#user-display").addClass("invisible");
+    $("#user-food-display").addClass("invisible");
+});
+
+
+$(document).on("click", "#saveDate", function(event) {
+    // prevent form from submitting
+    event.preventDefault();
+    var date = moment().format("MMM Do YY");
+    // grabbing user inputs
+    var sugarsDayVal = $("#sugars-div").val().trim();
+    var proteinDayVal = $("#protein-div").val().trim();
+    var caloriesDayVal = $("#calories-div").val().trim();
+    var sodiumDayVal = $("#sodium-div").val().trim();
+
+    console.log(sugarsVal);
+    console.log(proteinVal);
+    console.log(caloriesVal);
+    console.log(sodiumVal);
+
+    // var userRef = firebase.database().ref('next-level-health-ce659');
+    // console.log(userRef.child().val());
+    // push user inputs to database
+    database.ref().push({
+        date: date,
+        sugars: sugarsVal,
+        protein: proteinVal,
+        calories: caloriesVal,
+        sodium: sodiumVal
+
+    }), function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    };
+});
+
+$(document).on("click", ".btn", function (event) {
     event.preventDefault();
 
     btnType = $(this).val();
-
+    console.log(btnType);
     if (btnType === "addItem"){
         displayFoodItem();
     } else if (btnType === "search-cal") {
         displayFoodSearchItem();
     } else if (btnType === "nutriSearch"){
+        $("#food-search-display").empty();
         displayNutritionalResults();
     }
 })
+
 
